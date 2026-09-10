@@ -4,5 +4,8 @@
   {"id":"E03","title":"从 absorb 到 abuse","global":"VOCAB_E03_DATA"},
   {"id":"E04","title":"从 academic 到 access","global":"VOCAB_E04_DATA","file":"vocab-e04.js"},
   {"id":"E05","title":"从 accident 到 accommodate","global":"VOCAB_E05_DATA","file":"vocab-e05.js"},
-  {"id":"E06","title":"从 accompany 到 accord","global":"VOCAB_E06_DATA","file":"vocab-e06.js"}
+  {"id":"E06","title":"从 accompany 到 accord","global":"VOCAB_E06_DATA","file":"vocab-e06.js"},
+  {"id":"E07","title":"从 account 到 achieve","global":"VOCAB_E07_DATA","file":"vocab-e07.js"},
+  {"id":"E08","title":"从 acid 到 acquire","global":"VOCAB_E08_DATA","file":"vocab-e08.js"},
+  {"id":"E09","title":"从 acre 到 add","global":"VOCAB_E09_DATA","file":"vocab-e09.js"}
 ]

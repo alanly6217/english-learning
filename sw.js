@@ -1,8 +1,8 @@
-const CACHE='english-alanly-20260910-learning-v2';
+const CACHE='english-alanly-20260910-learning-v3';
 const ASSETS=[
   './','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./apple-touch-icon.png',
   './shell-nav.js',
-  './vocab.html','./vocab.css','./vocab-data-1.js','./vocab-data-2.js','./vocab-app.js',
+  './vocab.html','./vocab.css','./vocab-directory.css','./vocab-data-1.js','./vocab-data-2.js','./vocab-app.js',
   './visit.html','./visit.css','./visit-data-1.js','./visit-data-2.js','./visit-app.js'
 ];
 const INDEX_URL=new URL('./index.html',self.location.href).href;

@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "normalization": "v1",
+  "lessons": {
+    "E28": {
+      "mode": "source",
+      "words": 90,
+      "examples": 140,
+      "sha256": "c861382607a71dfab746ca2d5fe41349cdc141a90aa3fd9142e958c2b713370b"
+    },
+    "E29": {
+      "mode": "source",
+      "words": 57,
+      "examples": 82,
+      "sha256": "cc3cf0090617b6901cc096c59d38caeecd6c4d737c8ebff1241116ae721d8281"
+    },
+    "E30": {
+      "mode": "source",
+      "words": 76,
+      "examples": 147,
+      "sha256": "c239576141099f28aa506e2a0cfffd3628e6642e7ce5e52b7f22d6392231bc94"
+    },
+    "E31": {
+      "mode": "full",
+      "entries": 53,
+      "uniqueWords": 53,
+      "examples": 89,
+      "sha256": "e711b869263381b43f38e22362bcf6bbbfaed40c4e43ca1deaa9e99b386a0b4a"
+    },
+    "E32": {
+      "mode": "full",
+      "entries": 56,
+      "uniqueWords": 56,
+      "examples": 59,
+      "sha256": "8c46e0cb1b3484e83855f6c03e85409ec1c9905031b5f45dc4ccd92154d1d58a"
+    },
+    "E33": {
+      "mode": "full",
+      "entries": 57,
+      "uniqueWords": 56,
+      "examples": 88,
+      "sha256": "bbe2772e685f3dae05595404912cf3419acf215f52f0877198cd4f1fc8747c0f"
+    },
+    "E34": {
+      "mode": "full",
+      "entries": 69,
+      "uniqueWords": 69,
+      "examples": 88,
+      "sha256": "dfaaeb938fd24c4cfdef3277aea1681222a5feb8aff40bf20c2390d2e84071a2",
+      "word_sequence": ["364|away","1472|doorway","1471|door","2489|indoor","3375|outdoor","5349|way","2312|highway","4408|sideways","4756|subway","1082|convey","5314|voyage","5111|trivial","5269|via","5105|trifle","5318|wagon","5247|vehicle","1342|deviate","3750|previous","3286|obvious","5249|vein","5250|velocity","5369|weigh","5370|weight","5361|wedge","365|awe","366|awful","x|awesome","367|awkward","5051|toward","374|backward","372|back","5209|upward","1481|downward","2001|forward","1970|for","2621|inward","3388|outward","4701|straightforward","371|bachelor","2951|master","2952|masterpiece","3061|mistress","2265|headmaster","1456|doctor","1457|doctorate","1458|document","1459|documentary","3364|orthodox","3450|paradox","377|bad","379|badly","381|bag","382|baggage","2884|luggage","2713|lag","612|budget","447|beg","3420|pack","3421|package","3422|packet","3635|pocket","3456|parcel","4207|sack","3423|pact","933|compact","2440|impact","3812|propaganda","3499|peace","3500|peaceful"]
+    },
+    "E35": {
+      "mode": "full",
+      "entries": 57,
+      "uniqueWords": 57,
+      "examples": 84,
+      "sha256": "d225687a2130df51de306093d41dd28328a6b5fe14743b24ea5f1e05852d5d4b",
+      "word_sequence": ["383|bait","497|bite","496|bit","498|bitter","4555|sour","4836|sweet","3551|persuade","3552|persuasion","4595|spicy","472|bet","3559|petty","3555|pet","3579|piece","3482|patch","1323|dispatch","384|bake","421|batch","422|bath","423|bathe","424|bathroom","385|balance","387|bald","388|ball","390|balloon","389|ballet","391|ballot","620|bullet","619|bull","622|bully","458|belly","457|bell","462|belt","486|bill","3585|pill","621|bulletin","559|bowl","532|boil","533|bold","572|brave","1217|dare","618|bulk","515|block","617|bulb","1965|fool","1966|foolish","4423|silly","3658|pool","3656|pond","611|bud","610|bucket","529|boast","401|bar","402|barbecue","411|barrier","409|barrel","410|barren","1602|embarrass"]
+    },
+    "E36": {
+      "mode": "full",
+      "entries": 53,
+      "uniqueWords": 53,
+      "examples": 70,
+      "sha256": "821a75db509ab4e325e1086373614954fd6ea2427a2218de162c402bb08c4803",
+      "word_sequence": ["403|barber","433|beard","404|bare","405|barely","3152|naked","2213|gymnasium","418|basket","419|basketball","416|basin","432|bear","546|born","493|birth","434|bearing","593|bring","626|burden","3303|offer","3719|prefer","3720|preferable","3721|preference","3989|refer","3990|reference","1361|differ","1362|difference","1363|different","2484|indifferent","1364|differentiate","996|confer","997|conference","2500|infer","2501|inference","4767|suffer","5075|transfer","3014|metaphor","1884|ferry","1885|fertile","1886|fertilizer","441|bed","1604|embed","3599|pit","2002|fossil","1368|dig","1443|ditch","444|beer","476|beverage","4509|sober","3640|poison","3641|poisonous","5055|toxic","4849|symposium","3688|pot","552|bottle","2676|kettle","553|bottom"]
+    }
+  }
+}

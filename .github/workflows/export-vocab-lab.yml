@@ -1,0 +1,24 @@
+name: Export vocabulary lab inputs
+
+on:
+  push:
+    branches: [pipeline-v3-lab]
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vocab-pipeline-inputs
+          path: |
+            vocab-data-1.js
+            vocab-data-2.js
+            vocab-e*.js
+            vocab-lessons.json
+          if-no-files-found: error
+          retention-days: 1

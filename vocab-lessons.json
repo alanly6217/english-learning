@@ -16,5 +16,8 @@
   {"id":"E15","title":"从 affirm 到 aggravate","global":"VOCAB_E15_DATA","file":"vocab-e15.js"},
   {"id":"E16","title":"从 aggressive 到 alien","global":"VOCAB_E16_DATA","file":"vocab-e16.js"},
   {"id":"E17","title":"和 allege 相关的单词","global":"VOCAB_E17_DATA","file":"vocab-e17.js"},
-  {"id":"E18","title":"从 alleviate 到 amuse","global":"VOCAB_E18_DATA","file":"vocab-e18.js"}
+  {"id":"E18","title":"从 alleviate 到 amuse","global":"VOCAB_E18_DATA","file":"vocab-e18.js"},
+  {"id":"E19","title":"从 anchor 到 apart","global":"VOCAB_E19_DATA","file":"vocab-e19.js"},
+  {"id":"E20","title":"从 appall 到 appetite","global":"VOCAB_E20_DATA","file":"vocab-e20.js"},
+  {"id":"E21","title":"从 applaud 到 appoint","global":"VOCAB_E21_DATA","file":"vocab-e21.js"}
 ]

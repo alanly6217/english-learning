@@ -1,0 +1,17 @@
+name: Validate vocabulary data
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate vocabulary lessons
+        run: node scripts/validate-vocab.mjs

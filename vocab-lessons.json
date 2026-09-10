@@ -1,32 +1,200 @@
 [
-  {"id":"E01","title":"从 abandon 到 abolish","global":"VOCAB_DATA"},
-  {"id":"E02","title":"从 abound 到 absolute","global":"VOCAB_E02_DATA"},
-  {"id":"E03","title":"从 absorb 到 abuse","global":"VOCAB_E03_DATA"},
-  {"id":"E04","title":"从 academic 到 access","global":"VOCAB_E04_DATA","file":"vocab-e04.js"},
-  {"id":"E05","title":"从 accident 到 accommodate","global":"VOCAB_E05_DATA","file":"vocab-e05.js"},
-  {"id":"E06","title":"从 accompany 到 accord","global":"VOCAB_E06_DATA","file":"vocab-e06.js"},
-  {"id":"E07","title":"从 account 到 achieve","global":"VOCAB_E07_DATA","file":"vocab-e07.js"},
-  {"id":"E08","title":"从 acid 到 acquire","global":"VOCAB_E08_DATA","file":"vocab-e08.js"},
-  {"id":"E09","title":"从 acre 到 add","global":"VOCAB_E09_DATA","file":"vocab-e09.js"},
-  {"id":"E10","title":"从 address 到 adhere","global":"VOCAB_E10_DATA","file":"vocab-e10.js"},
-  {"id":"E11","title":"从 adjacent 到 admire","global":"VOCAB_E11_DATA","file":"vocab-e11.js"},
-  {"id":"E12","title":"从 admission 到 adverb","global":"VOCAB_E12_DATA","file":"vocab-e12.js"},
-  {"id":"E13","title":"从 adverse 到 advice","global":"VOCAB_E13_DATA","file":"vocab-e13.js"},
-  {"id":"E14","title":"从 advocate 到 affair","global":"VOCAB_E14_DATA","file":"vocab-e14.js"},
-  {"id":"E15","title":"从 affirm 到 aggravate","global":"VOCAB_E15_DATA","file":"vocab-e15.js"},
-  {"id":"E16","title":"从 aggressive 到 alien","global":"VOCAB_E16_DATA","file":"vocab-e16.js"},
-  {"id":"E17","title":"和 allege 相关的单词","global":"VOCAB_E17_DATA","file":"vocab-e17.js"},
-  {"id":"E18","title":"从 alleviate 到 amuse","global":"VOCAB_E18_DATA","file":"vocab-e18.js"},
-  {"id":"E19","title":"从 anchor 到 apart","global":"VOCAB_E19_DATA","file":"vocab-e19.js"},
-  {"id":"E20","title":"从 appall 到 appetite","global":"VOCAB_E20_DATA","file":"vocab-e20.js"},
-  {"id":"E21","title":"从 applaud 到 appoint","global":"VOCAB_E21_DATA","file":"vocab-e21.js"},
-  {"id":"E22","title":"从 appraisal 到 arithmetic","global":"VOCAB_E22_DATA","file":"vocab-e22.js"},
-  {"id":"E23","title":"从 arrange 到 arrest","global":"VOCAB_E23_DATA","file":"vocab-e23.js"},
-  {"id":"E24","title":"从 superstition 到 arrival","global":"VOCAB_E24_DATA","file":"vocab-e24.js"},
-  {"id":"E25","title":"从 art 到 ashamed","global":"VOCAB_E25_DATA","file":"vocab-e25.js"},
-  {"id":"E26","title":"从 ashore 到 aspect","global":"VOCAB_E26_DATA","file":"vocab-e26.js"},
-  {"id":"E27","title":"从 aspire 到 assert","global":"VOCAB_E27_DATA","file":"vocab-e27.js"},
-  {"id":"E28","title":"从 assess 到 assign","global":"VOCAB_E28_DATA","file":"vocab-e28.js","patch":"vocab-corrections-e28-e30.js"},
-  {"id":"E29","title":"从 assume 到 atmosphere","global":"VOCAB_E29_DATA","file":"vocab-e29.js","patch":"vocab-corrections-e28-e30.js"},
-  {"id":"E30","title":"从 attach 到 attempt","global":"VOCAB_E30_DATA","file":"vocab-e30.js","patch":"vocab-corrections-e28-e30.js"}
+  {
+    "id": "E01",
+    "title": "从 abandon 到 abolish",
+    "global": "VOCAB_DATA"
+  },
+  {
+    "id": "E02",
+    "title": "从 abound 到 absolute",
+    "global": "VOCAB_E02_DATA"
+  },
+  {
+    "id": "E03",
+    "title": "从 absorb 到 abuse",
+    "global": "VOCAB_E03_DATA"
+  },
+  {
+    "id": "E04",
+    "title": "从 academic 到 access",
+    "global": "VOCAB_E04_DATA",
+    "file": "vocab-e04.js"
+  },
+  {
+    "id": "E05",
+    "title": "从 accident 到 accommodate",
+    "global": "VOCAB_E05_DATA",
+    "file": "vocab-e05.js"
+  },
+  {
+    "id": "E06",
+    "title": "从 accompany 到 accord",
+    "global": "VOCAB_E06_DATA",
+    "file": "vocab-e06.js"
+  },
+  {
+    "id": "E07",
+    "title": "从 account 到 achieve",
+    "global": "VOCAB_E07_DATA",
+    "file": "vocab-e07.js"
+  },
+  {
+    "id": "E08",
+    "title": "从 acid 到 acquire",
+    "global": "VOCAB_E08_DATA",
+    "file": "vocab-e08.js"
+  },
+  {
+    "id": "E09",
+    "title": "从 acre 到 add",
+    "global": "VOCAB_E09_DATA",
+    "file": "vocab-e09.js"
+  },
+  {
+    "id": "E10",
+    "title": "从 address 到 adhere",
+    "global": "VOCAB_E10_DATA",
+    "file": "vocab-e10.js"
+  },
+  {
+    "id": "E11",
+    "title": "从 adjacent 到 admire",
+    "global": "VOCAB_E11_DATA",
+    "file": "vocab-e11.js"
+  },
+  {
+    "id": "E12",
+    "title": "从 admission 到 adverb",
+    "global": "VOCAB_E12_DATA",
+    "file": "vocab-e12.js"
+  },
+  {
+    "id": "E13",
+    "title": "从 adverse 到 advice",
+    "global": "VOCAB_E13_DATA",
+    "file": "vocab-e13.js"
+  },
+  {
+    "id": "E14",
+    "title": "从 advocate 到 affair",
+    "global": "VOCAB_E14_DATA",
+    "file": "vocab-e14.js"
+  },
+  {
+    "id": "E15",
+    "title": "从 affirm 到 aggravate",
+    "global": "VOCAB_E15_DATA",
+    "file": "vocab-e15.js"
+  },
+  {
+    "id": "E16",
+    "title": "从 aggressive 到 alien",
+    "global": "VOCAB_E16_DATA",
+    "file": "vocab-e16.js"
+  },
+  {
+    "id": "E17",
+    "title": "和 allege 相关的单词",
+    "global": "VOCAB_E17_DATA",
+    "file": "vocab-e17.js"
+  },
+  {
+    "id": "E18",
+    "title": "从 alleviate 到 amuse",
+    "global": "VOCAB_E18_DATA",
+    "file": "vocab-e18.js"
+  },
+  {
+    "id": "E19",
+    "title": "从 anchor 到 apart",
+    "global": "VOCAB_E19_DATA",
+    "file": "vocab-e19.js"
+  },
+  {
+    "id": "E20",
+    "title": "从 appall 到 appetite",
+    "global": "VOCAB_E20_DATA",
+    "file": "vocab-e20.js"
+  },
+  {
+    "id": "E21",
+    "title": "从 applaud 到 appoint",
+    "global": "VOCAB_E21_DATA",
+    "file": "vocab-e21.js"
+  },
+  {
+    "id": "E22",
+    "title": "从 appraisal 到 arithmetic",
+    "global": "VOCAB_E22_DATA",
+    "file": "vocab-e22.js"
+  },
+  {
+    "id": "E23",
+    "title": "从 arrange 到 arrest",
+    "global": "VOCAB_E23_DATA",
+    "file": "vocab-e23.js"
+  },
+  {
+    "id": "E24",
+    "title": "从 superstition 到 arrival",
+    "global": "VOCAB_E24_DATA",
+    "file": "vocab-e24.js"
+  },
+  {
+    "id": "E25",
+    "title": "从 art 到 ashamed",
+    "global": "VOCAB_E25_DATA",
+    "file": "vocab-e25.js"
+  },
+  {
+    "id": "E26",
+    "title": "从 ashore 到 aspect",
+    "global": "VOCAB_E26_DATA",
+    "file": "vocab-e26.js"
+  },
+  {
+    "id": "E27",
+    "title": "从 aspire 到 assert",
+    "global": "VOCAB_E27_DATA",
+    "file": "vocab-e27.js"
+  },
+  {
+    "id": "E28",
+    "title": "从 assess 到 assign",
+    "global": "VOCAB_E28_DATA",
+    "file": "vocab-e28.js",
+    "patch": "vocab-corrections-e28-e30.js"
+  },
+  {
+    "id": "E29",
+    "title": "从 assume 到 atmosphere",
+    "global": "VOCAB_E29_DATA",
+    "file": "vocab-e29.js",
+    "patch": "vocab-corrections-e28-e30.js"
+  },
+  {
+    "id": "E30",
+    "title": "从 attach 到 attempt",
+    "global": "VOCAB_E30_DATA",
+    "file": "vocab-e30.js",
+    "patch": "vocab-corrections-e28-e30.js"
+  },
+  {
+    "id": "E31",
+    "title": "从 attorney 到 auction",
+    "global": "VOCAB_E31_DATA",
+    "file": "vocab-e31.js"
+  },
+  {
+    "id": "E32",
+    "title": "从 audience 到 avoid",
+    "global": "VOCAB_E32_DATA",
+    "file": "vocab-e32.js"
+  },
+  {
+    "id": "E33",
+    "title": "从 await 到 award",
+    "global": "VOCAB_E33_DATA",
+    "file": "vocab-e33.js"
+  }
 ]

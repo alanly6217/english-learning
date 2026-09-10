@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<meta name="theme-color" content="#f5f6f8">
+<title>5500词 · E01｜背英语</title>
+<link rel="stylesheet" href="./vocab.css">
+</head>
+<body>
+<header><div class="top"><div class="brand">5500词 · E01</div><div class="pill" id="pstate">0 / 0 词已标记</div></div><nav class="global-nav" aria-label="学习板块"><a href="./index.html">100篇课程</a><a class="active" href="./vocab.html" aria-current="page">单词背诵</a><a href="./visit.html">欧洲拜访英语</a></nav></header>
+<main>
+<div class="module-nav">
+  <button id="nav-course" class="active" onclick="setModule('course')">词汇学习</button>
+  <button id="nav-memorize" onclick="setModule('memorize')">背诵模式</button>
+  <button id="nav-review" onclick="setModule('review')">今日复习</button>
+  <button id="nav-library" onclick="setModule('library')">词库</button>
+</div>
+
+<section class="hero">
+  <h1 id="hero-title">词汇学习 · E01</h1>
+  <p id="hero-desc">先理解再背诵：完整展示主词、讲解、原讲义例句以及词族/关联词。隐藏答案练习请进入“背诵模式”。</p>
+  <div class="statgrid">
+    <div class="stat"><b id="st-total">0</b><span>E01词条</span></div>
+    <div class="stat"><b id="st-know">0</b><span>认识</span></div>
+    <div class="stat"><b id="st-fuzzy">0</b><span>模糊</span></div>
+    <div class="stat"><b id="st-no">0</b><span>不认识</span></div>
+  </div>
+  <div class="progress"><i id="bar"></i></div>
+</section>
+
+<section id="course-view">
+  <div class="tabs" id="tabs"></div>
+  <div id="cards"></div>
+</section>
+
+<section id="memorize-view" class="hidden"></section>
+<section id="review-view" class="hidden"></section>
+<section id="library-view" class="hidden"></section>
+</main>
+<footer>5500词学习 · 当前已接入 E01 · 学习进度保存在本机</footer>
+
+<script src="./vocab-data-1.js"></script>
+<script src="./vocab-data-2.js"></script>
+<script src="./vocab-app.js"></script>
+</body>
+</html>

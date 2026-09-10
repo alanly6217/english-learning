@@ -196,5 +196,23 @@
     "title": "从 await 到 award",
     "global": "VOCAB_E33_DATA",
     "file": "vocab-e33.js"
+  },
+  {
+    "id": "E34",
+    "title": "从 away 到 bag",
+    "global": "VOCAB_E34_DATA",
+    "file": "vocab-e34.js"
+  },
+  {
+    "id": "E35",
+    "title": "从 bait 到 bar",
+    "global": "VOCAB_E35_DATA",
+    "file": "vocab-e35.js"
+  },
+  {
+    "id": "E36",
+    "title": "从 barber 到 beer",
+    "global": "VOCAB_E36_DATA",
+    "file": "vocab-e36.js"
   }
 ]

@@ -15,3 +15,5 @@ jobs:
         uses: actions/checkout@v4
       - name: Validate vocabulary lessons
         run: node scripts/validate-vocab.mjs
+      - name: Audit E34-E36 against reviewed lecture source
+        run: node scripts/audit-vocab-e34-e36.mjs

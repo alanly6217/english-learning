@@ -22,5 +22,8 @@
   {"id":"E21","title":"从 applaud 到 appoint","global":"VOCAB_E21_DATA","file":"vocab-e21.js"},
   {"id":"E22","title":"从 appraisal 到 arithmetic","global":"VOCAB_E22_DATA","file":"vocab-e22.js"},
   {"id":"E23","title":"从 arrange 到 arrest","global":"VOCAB_E23_DATA","file":"vocab-e23.js"},
-  {"id":"E24","title":"从 superstition 到 arrival","global":"VOCAB_E24_DATA","file":"vocab-e24.js"}
+  {"id":"E24","title":"从 superstition 到 arrival","global":"VOCAB_E24_DATA","file":"vocab-e24.js"},
+  {"id":"E25","title":"从 art 到 ashamed","global":"VOCAB_E25_DATA","file":"vocab-e25.js"},
+  {"id":"E26","title":"从 ashore 到 aspect","global":"VOCAB_E26_DATA","file":"vocab-e26.js"},
+  {"id":"E27","title":"从 aspire 到 assert","global":"VOCAB_E27_DATA","file":"vocab-e27.js"}
 ]

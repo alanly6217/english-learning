@@ -28,7 +28,6 @@ function flatten(data){
   for(const x of data)walk(x);
   return out;
 }
-
 function auditedFingerprint(data){
   const rows=flatten(data).map((e,index)=>[
     `${e?.no??'x'}|${normWord(e)}|${index}`,
@@ -42,7 +41,6 @@ function auditedFingerprint(data){
     sha256:crypto.createHash('sha256').update(JSON.stringify(rows)).digest('hex')
   };
 }
-
 function sourceFingerprint(data){
   const byWord=new Map();
   for(const e of flatten(data)){
@@ -64,6 +62,14 @@ try{manifest=JSON.parse(read('vocab-lessons.json'))}
 catch(err){fail(`vocab-lessons.json parse failed: ${err.message}`)}
 if(!Array.isArray(manifest)||!manifest.length)fail('vocab-lessons.json is empty or invalid');
 
+let auditRegistry={};
+try{
+  const parsed=JSON.parse(read('vocab-source-audits.json'));
+  if(parsed?.schema_version!==1)fail(`vocab-source-audits.json schema_version must be 1`);
+  if(parsed?.normalization!=='v1')fail(`vocab-source-audits.json normalization must be v1`);
+  auditRegistry=parsed?.lessons&&typeof parsed.lessons==='object'?parsed.lessons:{};
+}catch(err){fail(`vocab-source-audits.json parse failed: ${err.message}`)}
+
 const ids=manifest.map(x=>x.id);
 for(let i=0;i<ids.length;i++){
   const expected=`E${String(i+1).padStart(2,'0')}`;
@@ -74,12 +80,12 @@ const globals=manifest.map(x=>x.global).filter(Boolean);
 if(new Set(globals).size!==globals.length)fail('manifest contains duplicate global names');
 const lessonFiles=manifest.map(x=>x.file).filter(Boolean);
 if(new Set(lessonFiles).size!==lessonFiles.length)fail('manifest contains duplicate lesson files');
+for(const id of Object.keys(auditRegistry))if(!ids.includes(id))fail(`audit registry references unknown lesson ${id}`);
 
 for(const file of [...new Set([...lessonFiles,...manifest.map(x=>x.patch).filter(Boolean),'vocab-app-v2.js','vocab-app-extend.js','sw.js'])]){
   if(!exists(file))fail(`${file}: missing`); else syntaxCheck(file);
 }
 
-// Load all manifest-addressable lessons into one VM, then apply each correction layer exactly once.
 const sandbox={window:{}};
 vm.createContext(sandbox);
 for(const item of manifest){
@@ -124,35 +130,24 @@ for(const item of manifest){
   }
 }
 
-// Cryptographic regression fingerprints transcribed from the original E28-E30 PDF.
-// They validate every source word and every English example, not a sample.
-const SOURCE={
-  E28:{words:90,examples:140,sha256:'c861382607a71dfab746ca2d5fe41349cdc141a90aa3fd9142e958c2b713370b'},
-  E29:{words:57,examples:82,sha256:'cc3cf0090617b6901cc096c59d38caeecd6c4d737c8ebff1241116ae721d8281'},
-  E30:{words:76,examples:147,sha256:'c239576141099f28aa506e2a0cfffd3628e6642e7ce5e52b7f22d6392231bc94'}
-};
-for(const [id,expected] of Object.entries(SOURCE)){
+for(const [id,expected] of Object.entries(auditRegistry)){
   const data=lessonData[id];
   if(!data){fail(`${id}: missing lesson data for source audit`);continue}
-  const actual=sourceFingerprint(data);
-  if(actual.words!==expected.words)fail(`${id}: ${actual.words} unique words; source has ${expected.words}`);
-  if(actual.examples!==expected.examples)fail(`${id}: ${actual.examples} examples; source has ${expected.examples}`);
-  if(actual.sha256!==expected.sha256)fail(`${id}: source fingerprint mismatch; at least one word/example differs from the audited lecture source`);
-}
-
-// Blind-validated E31-E33 fingerprints include the full audited entry payload:
-// word number, word, IPA, POS, Chinese meaning, lecture note, and both sides of every example.
-const AUDITED={
-  E31:{entries:53,uniqueWords:53,examples:89,sha256:'e711b869263381b43f38e22362bcf6bbbfaed40c4e43ca1deaa9e99b386a0b4a'},
-  E32:{entries:56,uniqueWords:56,examples:59,sha256:'8c46e0cb1b3484e83855f6c03e85409ec1c9905031b5f45dc4ccd92154d1d58a'},
-  E33:{entries:57,uniqueWords:56,examples:88,sha256:'bbe2772e685f3dae05595404912cf3419acf215f52f0877198cd4f1fc8747c0f'}
-};
-for(const [id,expected] of Object.entries(AUDITED)){
-  const data=lessonData[id];
-  if(!data){fail(`${id}: missing lesson data for audited source check`);continue}
-  const actual=auditedFingerprint(data);
-  for(const key of ['entries','uniqueWords','examples'])if(actual[key]!==expected[key])fail(`${id}: ${key} ${actual[key]}; audited source has ${expected[key]}`);
-  if(actual.sha256!==expected.sha256)fail(`${id}: full audited source fingerprint mismatch`);
+  if(expected.mode==='source'){
+    const actual=sourceFingerprint(data);
+    for(const key of ['words','examples'])if(actual[key]!==expected[key])fail(`${id}: ${key} ${actual[key]}; audited source has ${expected[key]}`);
+    if(actual.sha256!==expected.sha256)fail(`${id}: source fingerprint mismatch`);
+  }else if(expected.mode==='full'){
+    const actual=auditedFingerprint(data);
+    for(const key of ['entries','uniqueWords','examples'])if(actual[key]!==expected[key])fail(`${id}: ${key} ${actual[key]}; audited source has ${expected[key]}`);
+    if(actual.sha256!==expected.sha256)fail(`${id}: full audited source fingerprint mismatch`);
+  }else{
+    fail(`${id}: unsupported audit mode ${expected.mode}`);
+  }
+  if(Array.isArray(expected.word_sequence)){
+    const seq=flatten(data).map(e=>`${e?.no??'x'}|${normWord(e)}`);
+    if(JSON.stringify(seq)!==JSON.stringify(expected.word_sequence))fail(`${id}: source/review word sequence mismatch`);
+  }
 }
 
 const html=read('vocab.html');
@@ -169,4 +164,4 @@ if(failures.length){
   failures.forEach(x=>console.error(`- ${x}`));
   process.exit(1);
 }
-console.log(`PASS: ${manifest.length} lessons registered; schema, numbering, dynamic coverage, manifest-driven offline cache, correction layers, and exact E28-E30 source fingerprints and full E31-E33 audited fingerprints passed.`);
+console.log(`PASS: ${manifest.length} lessons registered; schema, numbering, manifest-driven offline cache, correction layers, and ${Object.keys(auditRegistry).length} source-audited lessons verified.`);

@@ -1,105 +1,80 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
+import crypto from 'node:crypto';
 
 const root=process.cwd();
-const manifest=JSON.parse(fs.readFileSync(path.join(root,'vocab-lessons.json'),'utf8'));
 const failures=[];
 const fail=msg=>failures.push(msg);
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const exists=p=>fs.existsSync(path.join(root,p));
-
-function loadGlobal(file,globalName){
-  const sandbox={window:{}};
-  vm.createContext(sandbox);
-  try{vm.runInContext(read(file),sandbox,{filename:file,timeout:2000})}
-  catch(err){fail(`${file}: JavaScript load failed: ${err.message}`);return []}
-  const value=sandbox.window[globalName];
-  if(!Array.isArray(value))fail(`${file}: expected window.${globalName} to be an array`);
-  return Array.isArray(value)?value:[];
+const norm=s=>String(s??'').replace(/[ﬁ]/g,'fi').replace(/[ﬂ]/g,'fl').replace(/[ﬀ]/g,'ff').replace(/[’‘]/g,"'").replace(/[“”]/g,'"').replace(/[–—]/g,'-').replace(/\s+/g,' ').trim();
+const normWord=e=>norm(e?.word).toLowerCase();
+function syntaxCheck(file){try{new vm.Script(read(file),{filename:file})}catch(err){fail(`${file}: JavaScript syntax error: ${err.message}`)}}
+function flatten(data){const out=[];const walk=entry=>{if(!entry||typeof entry!=='object')return;out.push(entry);for(const r of Array.isArray(entry.related)?entry.related:[])walk(r)};for(const x of data)walk(x);return out}
+function sourceFingerprint(data){
+  const byWord=new Map();
+  for(const e of flatten(data)){const w=normWord(e);if(w&&!byWord.has(w))byWord.set(w,e)}
+  const canonical=[...byWord.entries()].sort(([a],[b])=>a.localeCompare(b)).map(([w,e])=>[w,(Array.isArray(e.examples)?e.examples:[]).map(ex=>norm(ex?.[0]))]);
+  return {words:byWord.size,examples:[...byWord.values()].reduce((n,e)=>n+(Array.isArray(e.examples)?e.examples.length:0),0),sha256:crypto.createHash('sha256').update(JSON.stringify(canonical)).digest('hex')};
 }
-
-function flatten(data){
-  const out=[];
-  const walk=entry=>{
-    if(!entry||typeof entry!=='object')return;
-    out.push(entry);
-    for(const r of Array.isArray(entry.related)?entry.related:[])walk(r);
-  };
-  for(const x of data)walk(x);
-  return out;
-}
-const word=e=>String(e?.word||'').trim().toLowerCase();
-
+let manifest=[];
+try{manifest=JSON.parse(read('vocab-lessons.json'))}catch(err){fail(`vocab-lessons.json parse failed: ${err.message}`)}
 if(!Array.isArray(manifest)||!manifest.length)fail('vocab-lessons.json is empty or invalid');
 const ids=manifest.map(x=>x.id);
-for(let i=0;i<ids.length;i++){
-  const expected=`E${String(i+1).padStart(2,'0')}`;
-  if(ids[i]!==expected)fail(`manifest sequence: expected ${expected}, got ${ids[i]}`);
-}
+for(let i=0;i<ids.length;i++){const expected=`E${String(i+1).padStart(2,'0')}`;if(ids[i]!==expected)fail(`manifest sequence: expected ${expected}, got ${ids[i]}`)}
 if(new Set(ids).size!==ids.length)fail('manifest contains duplicate lesson ids');
-
-const lessonData={};
+const globals=manifest.map(x=>x.global).filter(Boolean);if(new Set(globals).size!==globals.length)fail('manifest contains duplicate global names');
+const lessonFiles=manifest.map(x=>x.file).filter(Boolean);if(new Set(lessonFiles).size!==lessonFiles.length)fail('manifest contains duplicate lesson files');
+for(const file of [...new Set([...lessonFiles,...manifest.map(x=>x.patch).filter(Boolean),'vocab-app-v2.js','vocab-app-extend.js','sw.js'])]){if(!exists(file))fail(`${file}: missing`);else syntaxCheck(file)}
+const sandbox={window:{}};vm.createContext(sandbox);
 for(const item of manifest){
-  if(!item?.id||!item?.global){fail('manifest item missing id/global');continue}
-  // E01-E03 are legacy statically-loaded bundles; E04+ are manifest-loaded files.
   if(['E01','E02','E03'].includes(item.id))continue;
-  if(!item.file){fail(`${item.id}: missing file in manifest`);continue}
-  if(!exists(item.file)){fail(`${item.id}: file not found: ${item.file}`);continue}
-  const data=loadGlobal(item.file,item.global);
+  if(!item?.id||!item?.global||!item.file){fail(`${item?.id||'manifest item'}: missing id/global/file`);continue}
+  if(!exists(item.file))continue;
+  try{vm.runInContext(read(item.file),sandbox,{filename:item.file,timeout:3000})}catch(err){fail(`${item.file}: JavaScript load failed: ${err.message}`)}
+}
+for(const patch of [...new Set(manifest.map(x=>x.patch).filter(Boolean))]){
+  if(!exists(patch))continue;
+  try{vm.runInContext(read(patch),sandbox,{filename:patch,timeout:3000})}catch(err){fail(`${patch}: correction layer failed: ${err.message}`)}
+}
+const lessonData={};const numberedWords=new Map();
+for(const item of manifest){
+  if(['E01','E02','E03'].includes(item.id))continue;
+  const data=sandbox.window[item.global];
+  if(!Array.isArray(data)||!data.length){fail(`${item.id}: lesson data is empty or unavailable`);continue}
   lessonData[item.id]=data;
-  if(!data.length)fail(`${item.id}: lesson data is empty`);
   for(const [idx,e] of flatten(data).entries()){
-    if(!word(e))fail(`${item.id}: entry ${idx+1} missing word`);
+    const w=normWord(e);if(!w)fail(`${item.id}: entry ${idx+1} missing word`);
+    if(e.no!=null){const no=String(e.no),prior=numberedWords.get(no);if(prior&&prior!==w)fail(`No. ${no} maps to conflicting words: ${prior} / ${w}`);else if(w)numberedWords.set(no,w)}
     if(e.examples!=null){
       if(!Array.isArray(e.examples))fail(`${item.id}/${e.word}: examples must be array`);
-      else for(const ex of e.examples){
-        if(!Array.isArray(ex)||ex.length!==2||typeof ex[0]!=='string'||typeof ex[1]!=='string'){
-          fail(`${item.id}/${e.word}: invalid example pair`);
-          break;
-        }
+      else for(const [exIdx,ex] of e.examples.entries()){
+        if(!Array.isArray(ex)||ex.length!==2||typeof ex[0]!=='string'||typeof ex[1]!=='string'){fail(`${item.id}/${e.word}: invalid example pair #${exIdx+1}`);continue}
+        if(!norm(ex[0]))fail(`${item.id}/${e.word}: empty English example #${exIdx+1}`);if(!norm(ex[1]))fail(`${item.id}/${e.word}: empty Chinese example #${exIdx+1}`);
       }
     }
   }
 }
-
-// Source-derived example-count fingerprints from the original E28-E30 lecture PDF.
-// They are completeness gates only; they never generate or infer study content.
-const SOURCE_EXAMPLE_COUNTS={
-E28:{assess:2,assessment:1,census:1,censor:1,censorship:0,session:3,obsession:2,obsess:2,obsessive:2,possess:3,possession:2,sit:2,seat:2,site:1,situated:1,situation:0,siege:1,parasite:1,parachute:3,set:5,setting:2,settle:2,settlement:0,size:0,setback:1,upset:3,offset:1,outset:1,sunset:0,subsidy:1,allowance:2,grant:1,resident:2,residence:2,preside:1,president:2,chairman:1,chair:0,saddle:1,thesis:2,synthesis:1,synthetic:1,hypothesis:1,assign:2,assignment:1,sign:4,signal:3,signature:1,signify:2,significance:1,significant:1,design:2,designate:2,resign:3,seal:2,second:1,secondary:1,consecutive:2,sequence:2,consequence:2,consequently:1,subsequent:1,execute:3,executive:2,persecute:1,prosecute:3,social:1,sociable:1,socialism:0,society:0,sociology:0,associate:3,association:3,suit:3,suitable:1,suite:2,sue:2,pursue:2,pursuit:2,section:3},
-E29:{assume:4,assumption:2,example:2,sample:2,exemplify:1,exempt:2,empty:4,consume:3,consumption:0,presume:2,presumably:1,resume:2,premium:3,prompt:3,tip:4,top:0,assurance:2,assure:1,reassure:1,sure:0,insure:2,insurance:1,ensure:1,astonish:1,stun:2,thunder:1,sound:4,sane:1,tone:4,tune:3,supersonic:0,swan:2,noise:0,noisy:0,annoy:1,astronaut:0,star:0,astronomy:0,disaster:1,disastrous:0,catastrophe:1,consider:2,considerate:1,consideration:2,considerable:1,desire:2,desirable:1,eager:1,navy:0,naval:0,navigation:0,marine:2,submarine:2,athlete:0,atmosphere:2,sphere:1,hemisphere:1},
-E30:{attach:2,attachment:2,detach:2,attack:4,stick:3,sticky:2,stake:3,stock:4,stocking:0,stack:3,stagger:2,steak:0,stitch:3,sting:4,instinct:2,extinct:2,extinguish:2,distinct:2,distinction:2,distinguish:2,stimulate:2,incentive:1,spur:2,style:0,thorn:1,ticket:1,stab:3,attempt:2,tempt:2,temptation:1,lure:2,tentative:2,tend:2,tendency:1,trend:1,tender:5,attend:3,attendance:2,attendant:1,attention:0,extend:4,extension:2,extensive:2,extent:2,intend:2,intention:1,intense:2,intensity:2,intensive:1,pretend:2,contend:2,contain:2,container:0,content:3,continue:2,continuous:1,continual:1,continent:0,detain:2,entertain:2,entertainment:2,entry:3,entrance:3,obtain:1,retain:2,retention:1,rein:3,refrain:2,sustain:3,tense:3,tension:1,tight:3,tent:0,tedious:2,tape:1,tenant:2}
+const SOURCE={
+  E28:{words:90,examples:140,sha256:'c861382607a71dfab746ca2d5fe41349cdc141a90aa3fd9142e958c2b713370b'},
+  E29:{words:57,examples:82,sha256:'cc3cf0090617b6901cc096c59d38caeecd6c4d737c8ebff1241116ae721d8281'},
+  E30:{words:76,examples:147,sha256:'c239576141099f28aa506e2a0cfffd3628e6642e7ce5e52b7f22d6392231bc94'}
 };
-
-for(const [lessonId,expected] of Object.entries(SOURCE_EXAMPLE_COUNTS)){
-  const data=lessonData[lessonId];
-  if(!data){fail(`${lessonId}: missing lesson data for source audit`);continue}
-  const flat=flatten(data);
-  const byWord=new Map();
-  for(const e of flat)if(!byWord.has(word(e)))byWord.set(word(e),e);
-  const expectedWords=Object.keys(expected);
-  for(const w of expectedWords){
-    const e=byWord.get(w);
-    if(!e){fail(`${lessonId}: source word missing: ${w}`);continue}
-    const actual=Array.isArray(e.examples)?e.examples.length:0;
-    const needed=expected[w];
-    if(actual<needed)fail(`${lessonId}/${w}: ${actual} examples; source has ${needed}`);
-  }
-  const sourceUnexpected=[...byWord.keys()].filter(w=>!(w in expected));
-  if(sourceUnexpected.length)fail(`${lessonId}: words not present in source fingerprint: ${sourceUnexpected.join(', ')}`);
+for(const [id,expected] of Object.entries(SOURCE)){
+  const data=lessonData[id];if(!data){fail(`${id}: missing lesson data for source audit`);continue}
+  const actual=sourceFingerprint(data);
+  if(actual.words!==expected.words)fail(`${id}: ${actual.words} unique words; source has ${expected.words}`);
+  if(actual.examples!==expected.examples)fail(`${id}: ${actual.examples} examples; source has ${expected.examples}`);
+  if(actual.sha256!==expected.sha256)fail(`${id}: source fingerprint mismatch; at least one word/example differs from the audited lecture source`);
 }
-
 const html=read('vocab.html');
 if(/E01[–-]E\d{2}/.test(html)||/当前已接入\s*\d+\s*课/.test(html))fail('vocab.html contains hard-coded lesson coverage/count');
 const extend=read('vocab-app-extend.js');
 if(!extend.includes('LESSON_ORDER.length')||!extend.includes("LESSON_ORDER.at(-1)"))fail('vocab-app-extend.js must derive coverage/count from manifest');
+if(!extend.includes('item&&item.patch'))fail('vocab-app-extend.js must apply optional manifest correction layers');
 const sw=read('sw.js');
 if(/['"]\.\/vocab-e(?:0[4-9]|[1-9]\d)\.js['"]/.test(sw))fail('sw.js contains a hard-coded per-lesson JS list');
-if(!sw.includes('cacheLessonFiles')||!sw.includes('vocab-lessons.json'))fail('sw.js must cache lesson files from vocab-lessons.json');
-
-if(failures.length){
-  console.error(`FAILED (${failures.length})`);
-  failures.forEach(x=>console.error(`- ${x}`));
-  process.exit(1);
-}
-console.log(`PASS: ${manifest.length} lessons registered; schema, dynamic coverage, manifest-driven offline cache, and E28-E30 source completeness checks passed.`);
+if(!sw.includes('cacheLessonFiles')||!sw.includes('vocab-lessons.json')||!sw.includes('x&&x.patch'))fail('sw.js must cache lesson files and correction layers from vocab-lessons.json');
+if(failures.length){console.error(`FAILED (${failures.length})`);failures.forEach(x=>console.error(`- ${x}`));process.exit(1)}
+console.log(`PASS: ${manifest.length} lessons registered; schema, numbering, dynamic coverage, manifest-driven offline cache, correction layers, and exact E28-E30 source fingerprints passed.`);

@@ -26,7 +26,7 @@
   {"id":"E25","title":"从 art 到 ashamed","global":"VOCAB_E25_DATA","file":"vocab-e25.js"},
   {"id":"E26","title":"从 ashore 到 aspect","global":"VOCAB_E26_DATA","file":"vocab-e26.js"},
   {"id":"E27","title":"从 aspire 到 assert","global":"VOCAB_E27_DATA","file":"vocab-e27.js"},
-  {"id":"E28","title":"从 assess 到 assign","global":"VOCAB_E28_DATA","file":"vocab-e28.js"},
-  {"id":"E29","title":"从 assume 到 atmosphere","global":"VOCAB_E29_DATA","file":"vocab-e29.js"},
-  {"id":"E30","title":"从 attach 到 attempt","global":"VOCAB_E30_DATA","file":"vocab-e30.js"}
+  {"id":"E28","title":"从 assess 到 assign","global":"VOCAB_E28_DATA","file":"vocab-e28.js","patch":"vocab-corrections-e28-e30.js"},
+  {"id":"E29","title":"从 assume 到 atmosphere","global":"VOCAB_E29_DATA","file":"vocab-e29.js","patch":"vocab-corrections-e28-e30.js"},
+  {"id":"E30","title":"从 attach 到 attempt","global":"VOCAB_E30_DATA","file":"vocab-e30.js","patch":"vocab-corrections-e28-e30.js"}
 ]

@@ -19,6 +19,9 @@
   for(const item of manifest){
     if(!window[item.global]&&item.file)await loadScript(item.file);
   }
+  for(const patch of [...new Set(manifest.map(item=>item&&item.patch).filter(Boolean))]){
+    await loadScript(patch);
+  }
   for(const item of manifest){
     const data=window[item.global]||[];
     if(Array.isArray(data)&&data.length&&!LESSONS[item.id]){
@@ -30,7 +33,6 @@
   const lastId=LESSON_ORDER.at(-1)||'E01';
   const note=document.querySelector('.directory-note');
   if(note)note.textContent=`当前正式接入 E01–${lastId}。后续课程继续按原讲义数据导入，不生成不存在的词条。`;
-
   renderDirectory();
   const footer=document.getElementById('footer-current');
   if(footer)footer.textContent=`当前已接入 ${LESSON_ORDER.length} 课 · 正在学习 ${lessonId}`;

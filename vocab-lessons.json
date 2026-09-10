@@ -10,5 +10,8 @@
   {"id":"E09","title":"从 acre 到 add","global":"VOCAB_E09_DATA","file":"vocab-e09.js"},
   {"id":"E10","title":"从 address 到 adhere","global":"VOCAB_E10_DATA","file":"vocab-e10.js"},
   {"id":"E11","title":"从 adjacent 到 admire","global":"VOCAB_E11_DATA","file":"vocab-e11.js"},
-  {"id":"E12","title":"从 admission 到 adverb","global":"VOCAB_E12_DATA","file":"vocab-e12.js"}
+  {"id":"E12","title":"从 admission 到 adverb","global":"VOCAB_E12_DATA","file":"vocab-e12.js"},
+  {"id":"E13","title":"从 adverse 到 advice","global":"VOCAB_E13_DATA","file":"vocab-e13.js"},
+  {"id":"E14","title":"从 advocate 到 affair","global":"VOCAB_E14_DATA","file":"vocab-e14.js"},
+  {"id":"E15","title":"从 affirm 到 aggravate","global":"VOCAB_E15_DATA","file":"vocab-e15.js"}
 ]

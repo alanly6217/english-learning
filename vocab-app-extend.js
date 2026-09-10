@@ -15,6 +15,7 @@
     if(response.ok)manifest=await response.json();
   }catch{}
   if(!Array.isArray(manifest)||!manifest.length)return;
+
   for(const item of manifest){
     if(!window[item.global]&&item.file)await loadScript(item.file);
   }
@@ -25,8 +26,15 @@
       LESSON_ORDER.push(item.id);
     }
   }
+
+  const lastId=LESSON_ORDER.at(-1)||'E01';
+  const note=document.querySelector('.directory-note');
+  if(note)note.textContent=`当前正式接入 E01–${lastId}。后续课程继续按原讲义数据导入，不生成不存在的词条。`;
+
   renderDirectory();
-  document.getElementById('footer-current').textContent=`当前已接入 ${LESSON_ORDER.length} 课 · 正在学习 ${lessonId}`;
+  const footer=document.getElementById('footer-current');
+  if(footer)footer.textContent=`当前已接入 ${LESSON_ORDER.length} 课 · 正在学习 ${lessonId}`;
+
   const requested=new URLSearchParams(location.search).get('lesson');
   if(requested&&LESSONS[requested]&&requested!==lessonId)openLesson(requested);
 })();

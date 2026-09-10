@@ -8,12 +8,41 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <meta name="theme-color" content="#f5f6f8">
-<title>5500词 · E01｜背英语</title>
+<title>5500词课程｜背英语</title>
 <link rel="stylesheet" href="./vocab.css">
+<link rel="stylesheet" href="./vocab-directory.css">
 </head>
 <body>
-<header><div class="top"><div class="brand">5500词 · E01</div><div class="pill" id="pstate">0 / 0 词已标记</div></div><nav class="global-nav" aria-label="学习板块"><a href="./index.html">100篇课程</a><a class="active" href="./vocab.html" aria-current="page">单词背诵</a><a href="./visit.html">欧洲拜访英语</a></nav></header>
+<header><div class="top"><div class="brand">5500词学习</div><div class="pill" id="pstate">0 / 0 词已标记</div></div><nav class="global-nav" aria-label="学习板块"><a href="./index.html">100篇课程</a><a class="active" href="./vocab.html" aria-current="page">单词背诵</a><a href="./visit.html">欧洲拜访英语</a></nav></header>
 <main>
+<section class="course-directory" id="course-directory" aria-label="单词课程目录">
+  <div class="directory-head">
+    <div>
+      <div class="directory-title">5500词课程目录</div>
+      <div class="directory-sub">按课程分组学习和背诵，已导入的课次会自动出现在这里。</div>
+    </div>
+    <div class="directory-count">已接入 1 课</div>
+  </div>
+  <div class="directory-list">
+    <button class="directory-item" type="button" onclick="openE01()">
+      <div class="directory-row">
+        <div class="directory-code">E01</div>
+        <div class="directory-meta">
+          <div class="directory-name">课程 E01</div>
+          <div class="directory-detail">6 个主词 · 68 个去重词条</div>
+        </div>
+        <div class="directory-arrow">›</div>
+      </div>
+      <div class="directory-progress-row">
+        <div class="directory-progress"><i id="dir-e01-bar"></i></div>
+        <div class="directory-progress-text" id="dir-e01-progress">0 / 68 已标记</div>
+      </div>
+    </button>
+  </div>
+  <div class="directory-note">目前只导入 E01，所以目录只显示 E01。后续导入 E02、E03……时，会继续追加课次，不会生成不存在的课程数据。</div>
+</section>
+
+<div class="course-breadcrumb"><span>5500词</span><span>›</span><b>E01</b></div>
 <div class="module-nav">
   <button id="nav-course" class="active" onclick="setModule('course')">词汇学习</button>
   <button id="nav-memorize" onclick="setModule('memorize')">背诵模式</button>
@@ -47,5 +76,26 @@
 <script src="./vocab-data-1.js"></script>
 <script src="./vocab-data-2.js"></script>
 <script src="./vocab-app.js"></script>
+<script>
+function openE01(){
+  setModule('course');
+  const target=document.querySelector('.course-breadcrumb');
+  target?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function syncDirectoryProgress(){
+  const pill=document.getElementById('pstate');
+  const text=document.getElementById('dir-e01-progress');
+  const bar=document.getElementById('dir-e01-bar');
+  if(!pill||!text||!bar)return;
+  const m=pill.textContent.match(/(\d+)\s*\/\s*(\d+)/);
+  if(!m)return;
+  const marked=Number(m[1]), total=Number(m[2])||68;
+  text.textContent=`${marked} / ${total} 已标记`;
+  bar.style.width=`${Math.min(100,marked/total*100)}%`;
+}
+syncDirectoryProgress();
+const pillObserver=new MutationObserver(syncDirectoryProgress);
+pillObserver.observe(document.getElementById('pstate'),{childList:true,characterData:true,subtree:true});
+</script>
 </body>
 </html>

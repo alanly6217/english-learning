@@ -13,5 +13,8 @@
   {"id":"E12","title":"从 admission 到 adverb","global":"VOCAB_E12_DATA","file":"vocab-e12.js"},
   {"id":"E13","title":"从 adverse 到 advice","global":"VOCAB_E13_DATA","file":"vocab-e13.js"},
   {"id":"E14","title":"从 advocate 到 affair","global":"VOCAB_E14_DATA","file":"vocab-e14.js"},
-  {"id":"E15","title":"从 affirm 到 aggravate","global":"VOCAB_E15_DATA","file":"vocab-e15.js"}
+  {"id":"E15","title":"从 affirm 到 aggravate","global":"VOCAB_E15_DATA","file":"vocab-e15.js"},
+  {"id":"E16","title":"从 aggressive 到 alien","global":"VOCAB_E16_DATA","file":"vocab-e16.js"},
+  {"id":"E17","title":"从 allege 到 ally / alloy","global":"VOCAB_E17_DATA","file":"vocab-e17.js"},
+  {"id":"E18","title":"从 alleviate 到 amuse","global":"VOCAB_E18_DATA","file":"vocab-e18.js"}
 ]

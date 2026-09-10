@@ -1,0 +1,8 @@
+[
+  {"id":"E01","title":"从 abandon 到 abolish","global":"VOCAB_DATA"},
+  {"id":"E02","title":"从 abound 到 absolute","global":"VOCAB_E02_DATA"},
+  {"id":"E03","title":"从 absorb 到 abuse","global":"VOCAB_E03_DATA"},
+  {"id":"E04","title":"从 academic 到 access","global":"VOCAB_E04_DATA","file":"vocab-e04.js"},
+  {"id":"E05","title":"从 accident 到 accommodate","global":"VOCAB_E05_DATA","file":"vocab-e05.js"},
+  {"id":"E06","title":"从 accompany 到 accord","global":"VOCAB_E06_DATA","file":"vocab-e06.js"}
+]

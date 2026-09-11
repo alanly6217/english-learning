@@ -1,0 +1,26 @@
+name: Apply E37-E45 validated batch
+permissions:
+  contents: write
+on:
+  push:
+    branches:
+      - batch-e37-e45-clean
+jobs:
+  apply:
+    if: ${{ !contains(github.event.head_commit.message, 'apply validated E37-E45 payload') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Decode validated payload
+        run: |
+          base64 -d .batch_payload/release.b64 > /tmp/release.tar.gz
+          tar -xzf /tmp/release.tar.gz -C .
+      - name: Commit production files
+        run: |
+          git config user.name 'alanly6217'
+          git config user.email 'alanly6217@gmail.com'
+          git add vocab-e37.js vocab-e38.js vocab-e39.js vocab-e40.js vocab-e41.js vocab-e42.js vocab-e43.js vocab-e44.js vocab-e45.js vocab-lessons.json vocab-source-audits.json
+          git commit -m 'feat: apply validated E37-E45 payload'
+          git push origin HEAD:batch-e37-e45-clean

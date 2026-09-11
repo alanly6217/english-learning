@@ -1,0 +1,19 @@
+name: Export batch vocabulary inputs
+on:
+  push:
+    branches: [batch-e37-e45-export]
+  workflow_dispatch:
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: vocab-batch-current
+          path: |
+            vocab-e*.js
+            vocab-lessons.json
+            vocab-source-audits.json
+            validate-vocab.mjs
+          retention-days: 1

@@ -214,5 +214,59 @@
     "title": "从 barber 到 beer",
     "global": "VOCAB_E36_DATA",
     "file": "vocab-e36.js"
+  },
+  {
+    "id": "E37",
+    "title": "从 behalf 到 below",
+    "global": "VOCAB_E37_DATA",
+    "file": "vocab-e37.js"
+  },
+  {
+    "id": "E38",
+    "title": "从 benign 到 bicycle",
+    "global": "VOCAB_E38_DATA",
+    "file": "vocab-e38.js"
+  },
+  {
+    "id": "E39",
+    "title": "从 bid 到 blast",
+    "global": "VOCAB_E39_DATA",
+    "file": "vocab-e39.js"
+  },
+  {
+    "id": "E40",
+    "title": "从 blueprint 到 brake",
+    "global": "VOCAB_E40_DATA",
+    "file": "vocab-e40.js"
+  },
+  {
+    "id": "E41",
+    "title": "从 brand 到 bump",
+    "global": "VOCAB_E41_DATA",
+    "file": "vocab-e41.js"
+  },
+  {
+    "id": "E42",
+    "title": "从 bury 到 cancel",
+    "global": "VOCAB_E42_DATA",
+    "file": "vocab-e42.js"
+  },
+  {
+    "id": "E43",
+    "title": "从 cancer 到 cemetery",
+    "global": "VOCAB_E43_DATA",
+    "file": "vocab-e43.js"
+  },
+  {
+    "id": "E44",
+    "title": "从 cent 到 china",
+    "global": "VOCAB_E44_DATA",
+    "file": "vocab-e44.js"
+  },
+  {
+    "id": "E45",
+    "title": "从 Christ 到 clause",
+    "global": "VOCAB_E45_DATA",
+    "file": "vocab-e45.js"
   }
 ]

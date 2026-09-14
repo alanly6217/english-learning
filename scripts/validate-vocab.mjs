@@ -70,6 +70,16 @@ try{
   auditRegistry=parsed?.lessons&&typeof parsed.lessons==='object'?parsed.lessons:{};
 }catch(err){fail(`vocab-source-audits.json parse failed: ${err.message}`)}
 
+const omissionKey=(id,no,word,index,english)=>
+  `${id}|${no??'x'}|${norm(word).toLowerCase()}|${index}|${norm(english)}`;
+const expectedSourceOmissions=new Set();
+for(const [id,audit] of Object.entries(auditRegistry)){
+  for(const omission of Array.isArray(audit?.source_omissions)?audit.source_omissions:[]){
+    expectedSourceOmissions.add(omissionKey(id,omission.no,omission.word,omission.example_index,omission.english));
+  }
+}
+const seenSourceOmissions=new Set();
+
 const ids=manifest.map(x=>x.id);
 for(let i=0;i<ids.length;i++){
   const expected=`E${String(i+1).padStart(2,'0')}`;
@@ -124,11 +134,18 @@ for(const item of manifest){
           fail(`${item.id}/${e.word}: invalid example pair #${exIdx+1}`);continue;
         }
         if(!norm(ex[0]))fail(`${item.id}/${e.word}: empty English example #${exIdx+1}`);
-        if(!norm(ex[1]))fail(`${item.id}/${e.word}: empty Chinese example #${exIdx+1}`);
+        const key=omissionKey(item.id,e.no,e.word,exIdx,ex[0]);
+        if(!norm(ex[1])){
+          if(expectedSourceOmissions.has(key))seenSourceOmissions.add(key);
+          else fail(`${item.id}/${e.word}: empty Chinese example #${exIdx+1}`);
+        }else if(expectedSourceOmissions.has(key)){
+          fail(`${item.id}/${e.word}: audited source omission #${exIdx+1} must remain empty`);
+        }
       }
     }
   }
 }
+for(const key of expectedSourceOmissions)if(!seenSourceOmissions.has(key))fail(`audited source omission missing or mismatched: ${key}`);
 
 for(const [id,expected] of Object.entries(auditRegistry)){
   const data=lessonData[id];

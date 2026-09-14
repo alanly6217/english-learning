@@ -322,5 +322,59 @@
     "title": "从 contact 到 official",
     "global": "VOCAB_E54_DATA",
     "file": "vocab-e54.js"
+  },
+  {
+    "id": "E55",
+    "title": "从 corn 到 crystal",
+    "global": "VOCAB_E55_DATA",
+    "file": "vocab-e55.js"
+  },
+  {
+    "id": "E56",
+    "title": "从 daily 到 indignation",
+    "global": "VOCAB_E56_DATA",
+    "file": "vocab-e56.js"
+  },
+  {
+    "id": "E57",
+    "title": "从 debt 到 gay",
+    "global": "VOCAB_E57_DATA",
+    "file": "vocab-e57.js"
+  },
+  {
+    "id": "E58",
+    "title": "从 dental 到 utter",
+    "global": "VOCAB_E58_DATA",
+    "file": "vocab-e58.js"
+  },
+  {
+    "id": "E59",
+    "title": "从 determine 到 dirty",
+    "global": "VOCAB_E59_DATA",
+    "file": "vocab-e59.js"
+  },
+  {
+    "id": "E60",
+    "title": "从 disease 到 priest",
+    "global": "VOCAB_E60_DATA",
+    "file": "vocab-e60.js"
+  },
+  {
+    "id": "E61",
+    "title": "从 domain 到 abide",
+    "global": "VOCAB_E61_DATA",
+    "file": "vocab-e61.js"
+  },
+  {
+    "id": "E62",
+    "title": "从 eat 到 murder",
+    "global": "VOCAB_E62_DATA",
+    "file": "vocab-e62.js"
+  },
+  {
+    "id": "E63",
+    "title": "从 entitle 到 halt",
+    "global": "VOCAB_E63_DATA",
+    "file": "vocab-e63.js"
   }
 ]

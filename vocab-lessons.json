@@ -268,5 +268,59 @@
     "title": "从 Christ 到 clause",
     "global": "VOCAB_E45_DATA",
     "file": "vocab-e45.js"
+  },
+  {
+    "id": "E46",
+    "title": "从 clergy 到 spokesman",
+    "global": "VOCAB_E46_DATA",
+    "file": "vocab-e46.js"
+  },
+  {
+    "id": "E47",
+    "title": "从 commemorate 到 municipal",
+    "global": "VOCAB_E47_DATA",
+    "file": "vocab-e47.js"
+  },
+  {
+    "id": "E48",
+    "title": "从 commute 到 filter",
+    "global": "VOCAB_E48_DATA",
+    "file": "vocab-e48.js"
+  },
+  {
+    "id": "E49",
+    "title": "从 component 到 prey",
+    "global": "VOCAB_E49_DATA",
+    "file": "vocab-e49.js"
+  },
+  {
+    "id": "E50",
+    "title": "从 condemn 到 toll",
+    "global": "VOCAB_E50_DATA",
+    "file": "vocab-e50.js"
+  },
+  {
+    "id": "E51",
+    "title": "从 confidence 到 nest",
+    "global": "VOCAB_E51_DATA",
+    "file": "vocab-e51.js"
+  },
+  {
+    "id": "E52",
+    "title": "从 conscience 到 desolate",
+    "global": "VOCAB_E52_DATA",
+    "file": "vocab-e52.js"
+  },
+  {
+    "id": "E53",
+    "title": "从 constrain 到 examine",
+    "global": "VOCAB_E53_DATA",
+    "file": "vocab-e53.js"
+  },
+  {
+    "id": "E54",
+    "title": "从 contact 到 official",
+    "global": "VOCAB_E54_DATA",
+    "file": "vocab-e54.js"
   }
 ]
